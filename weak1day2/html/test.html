@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="fetchdata"></div>
+    <p id="pp"></p>
+</body>
+<script>
+    document.getElementById('pp').innerHTML = "kas"
+
+
+    // const fetch = require("node-fetch");
+    //alert("the delete button" + bookId)    
+    const url = `http://localhost:5000/users`
+    // Awaiting fetch which contains  
+    // method, headers and content-type 
+    fetch(url, {
+
+        method: 'get',
+        mode: 'no-cors',
+        headers: {
+            'content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type,Authorization,Accept',
+            'Content-Type': 'application/json', //'text/plain', //
+            'Accept': 'application/json'
+
+        }
+
+    }).then(res => {
+       
+        console.log("aa");
+        return JSON.stringify(res);
+
+    })
+        .then(data => {
+            console.log(data)
+
+        })
+    document.getElementById('fetchdata').innerHTML = "kas the best"
+
+//     }
+</script>
+
+</html>
