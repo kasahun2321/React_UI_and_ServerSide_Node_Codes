@@ -17,9 +17,10 @@ export default class ListStudent extends React.Component {
             this.state.student.map((student) => {
               return (
                 <tr>
-                  {["fname", "lname", "major", 'email'].map((n) => (
-                    <td>{student[n]}</td>
-                  ))}
+                  {["fname", "lname", "major", 'email'].map((n) => 
+                    (<td>{student[n]}</td>)
+                   
+                  )}
                 </tr>
               );
             })}
@@ -64,7 +65,15 @@ export default class ListStudent extends React.Component {
     this.setState({ email: event.target.value });
   }
   updateMajor() {
-    this.setState({ major: "computer Scince" })
+    let result = this.state.student.map((item, index) => {
+      return {
+        fname: item.fname,
+        lname: item.lname,
+        major: "computer science",
+        email: item.email
+      }
+    })
+    this.setState({student: result})
   }
   //every function inside class call's the render when it is Triggered
   render() {
@@ -79,7 +88,7 @@ export default class ListStudent extends React.Component {
         <input type="text" value={this.state.major} onChange={(event) => { this.updatemajorInput(event) }} /><br />
         <label>Email</label><br />
         <input type="text" value={this.state.email} onChange={(event) => { this.updateemail(event) }} /><br />
-
+        <h1>{this.state.showStudent}</h1>
         <button onClick={() => this.updateMajor()}>update</button>
         <button onClick={this.register}>Register</button>
         <button onClick={this.delete}>Delete</button>
