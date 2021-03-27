@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react'
-import Form from './new-student'
-import List from './list-students'
+import Form from './aman'
+import List2 from './list-student'
 import ListBYclass from './LIstStudentByClass'
+import MyForm from './registrationForm'
 
 // import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 
-function App() {
-  return (
-   
-    <div><h2>hello world</h2>
-      <butto className="btn btn-primery"> hello my button</butto>
-      <Form /><br />
-      <List/><br /><hr/>
-      <ListBYclass/>
+export default class App extends React.Component {
+
+  state = {
+    am:[
+      { fname:"hello",lname:"world"}
+    ]
+  }
+
+
+
+  render() {
+    return (
+      <div align="center">
+        <Form fname={this.state.am[0].fname} Lname={this.state.am[0].lname}></Form>
+        <List2/>
       </div>
-  );
+    )
+  }
 }
 
-export default App;

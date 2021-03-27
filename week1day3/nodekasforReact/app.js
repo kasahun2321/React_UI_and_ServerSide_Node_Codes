@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const authorization = require('./middleware/authorization');
 const cors=require('cors');
 
 const MongoClient = require('mongodb').MongoClient;
@@ -11,7 +12,7 @@ const client = new MongoClient(url, { useUnifiedTopology: true });
 let connection;
 
 var usersRouter = require('./routes/students');
-var authentRouter = require('./routes/authentication');
+var loginregisterRouter = require('./routes/loginRegister');
 
 var app = express();
 
@@ -39,8 +40,11 @@ app.use('/', (req, res, next) => {
     next();
   }
 });
-app.use('/authenticate',authentRouter)
-//http://localhost:5000/users/
+//check token before login
+app.use(authorization.checkToken);
+//http://localhost:5000/loginregister
+app.use('/loginregister',loginregisterRouter)
+//http://localhost:5000/students
 app.use('/students', usersRouter);
 
 // catch 404 and forward to error handler

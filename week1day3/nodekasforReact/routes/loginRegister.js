@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware/authorization');
 const jwtManager = require('../jwt/jwtManager');
-const hasher = require('bcryptjs');
 const { ObjectID } = require('bson');
 
 
@@ -12,15 +11,20 @@ router.post('/login', (req, res) => {
         .findOne({ 'email': req.body.email })
         .then(data => {
             if (data) {
+                console.log(data)
                 const payload = {};
+                payload.fname =data.fname;
                 payload.email = data.email;
                 const token = jwtManager.generate(payload);
+                console.log(token)
                 res.json({ status: 'success', result: token });
             } else {
+                console.log("inside if")
                 res.json({ status: 'invalid_user' });
             }
         })
         .catch(err => {
+            console.log("inside catch")
             res.json({ status: 'invalid_user' });
         })
 
@@ -28,7 +32,7 @@ router.post('/login', (req, res) => {
 
 //User signup
 //We pass the checkValidInput to verify the input.
-router.post('/signup', (req, res) => {
+router.post('/signup', middleware.checkValidInput, (req, res) => {
 
     req.db.collection('student').findOne({ 'email': req.body.email })
         .then(doc => {

@@ -13,3 +13,4 @@ class JwtManager{
             return data;
         }
 }
+module.exports = new JwtManager();
