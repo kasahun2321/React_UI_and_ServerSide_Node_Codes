@@ -9,6 +9,8 @@ export default function Form() {
     const [major, setmajor] = useState('');
     const [email, setemail] = useState('');
 
+    
+
     function adduser(event) {
         //to avoid form auto referesh
         event.preventDefault();
