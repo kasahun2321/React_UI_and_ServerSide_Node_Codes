@@ -2,17 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import TickTalk from './tictactoe'
-import Old from './oldStyleReact'
 import reportWebVitals from './reportWebVitals';
-
 
 ReactDOM.render(
   <React.StrictMode>
-    <Old/>
-    <TickTalk/>
     <App />
-
   </React.StrictMode>,
   document.getElementById('root')
 );
