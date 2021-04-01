@@ -98,4 +98,17 @@ router.delete('/:id', function (req, res, next) {
       res.json({ status: 'faild to delete' })
     })
 });
+
+router.delete('/', function (req, res, next) {
+  console.log(req.params.id)
+  req.db.collection('bookstore')
+    .remove()
+    .then(data => {
+      console.log("mesage test")
+      res.json({ status: "successully deleted alll" });
+    })
+    .catch(err => {
+      res.json({ status: 'faild to delete' })
+    })
+});
 module.exports = router;

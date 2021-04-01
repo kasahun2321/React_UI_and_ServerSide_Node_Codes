@@ -5,17 +5,21 @@ import Books from './components/books'
 import Aux from './components/auxilary'
 import Createcomponenet from './components/createcomponent'
 import axios from 'axios';
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.obj = { id: '', title: "", author: "", quantity: "" }
+    this.obj = { id: '', title: "", author: "", quantity: "0" }
     this.idONchangeevent = this.idONchangeevent.bind(this)
     this.titleONchangeevent1 = this.titleONchangeevent1.bind(this)
     this.authorONchangeevent2 = this.authorONchangeevent2.bind(this)
     this.addproduct = this.addproduct.bind(this)
     this.delete = this.delete.bind(this)
     this.edit = this.edit.bind(this)
+    this.deleteAll=this.deleteAll.bind(this)
     this.quantityOnchage=this.quantityOnchage.bind(this)
   }
 
@@ -23,14 +27,18 @@ class App extends React.Component {
     bookstore: []
 
   }
-  componentDidMount() {
-    this.fetchdata()
+  componentDidMount(prevProps, prevState) 
+  {
+      this.fetchdata();
+
   }
-  componentDidUpdate(nextprops)
+  componentDidUpdate(prevProps, prevState) 
   {
 
-    this.fetchdata();
-
+    if (prevProps.bookstore !== this.state.bookstore)
+    {
+      this.fetchdata();
+    }
   }
   //when ever called fetch the data into state
   fetchdata = () => {
@@ -38,27 +46,34 @@ class App extends React.Component {
       .then(result => {
         console.log("my axios data", result.data)
         this.setState({ bookstore: result.data })
-      })
+      }).catch(err =>
+      {
+        console.log('error')
+        })
   }
+
   //find by id and edit
   edit(id) {
 
     const tempbookstore = this.state.bookstore;
-    const ix = tempbookstore.indexOf(this.getItem(id));
-    const editItem = tempbookstore[ix]
+    // const ix = tempbookstore.indexOf(this.getItem(id));
+    // const editItem = tempbookstore[ix]
+    // console.log("thada after clicking edit :",editItem)
     // this.obj.id = editItem.id;
     // this.obj.title = editItem.title;
     // this.obj.author = editItem.author;
+    // console.log(this.obj)
     // this.obj.quantity = editItem.quantity;
   //   axios.put('http://localhost:5000/students'+id, this.obj)
   //   .then(res => {
   //     console.log(res);
   //     console.log(res.data);
   //   })
-  // this.fetchdata()
+  this.fetchdata()
 
 
   }
+
   getItem(id) {
     const result = this.state.bookstore.find(item => {
       return item.id === id
@@ -74,8 +89,15 @@ class App extends React.Component {
         console.log(res.data);
       })
     this.fetchdata();
-
-
+  }
+  deleteAll() {
+    console.log("test all delete")
+    axios.delete('http://localhost:5000/students/')
+      .then(res => {
+        console.log("delete console", res);
+        console.log(res.data);
+      })
+    this.fetchdata();
   }
   idONchangeevent(event) {
     this.obj.id = event.target.value;
@@ -90,7 +112,7 @@ class App extends React.Component {
     this.obj.quantity = event.target.value;
   }
   addproduct(e) {
-    // e.preventDefault();
+   
     console.log(this.obj)
     let newBook = this.obj
 
@@ -100,16 +122,15 @@ class App extends React.Component {
         console.log(res.data);
       })
     this.fetchdata()
-
-
   }
 
   render() {
     return (
       <Aux >
-
         <Createcomponenet
+          obj={this.obj}
           additems={this.addproduct}
+          deleteAll={this.deleteAll }
           idONchangeevent={(event) => { this.idONchangeevent(event) }}
           titleONchangeevent1={(event) => { this.titleONchangeevent1(event) }}
           authorONchangeevent2={(event) => { this.authorONchangeevent2(event) }}
