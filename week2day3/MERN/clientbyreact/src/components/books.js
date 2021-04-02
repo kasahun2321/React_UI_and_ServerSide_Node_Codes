@@ -10,7 +10,7 @@ export default class books extends React.Component {
                 <table border='1px' width="80%" align='center'>
                     <thead>
                         
-                        <th>ID</th><th>Title</th><th>Author</th><th>Quantity</th><th colSpan='2'>CRUD</th>
+                        <th>ID</th><th>Title</th><th>Author</th><th>Quantity</th><th>CRUD</th><th>Details</th>
                     </thead>
                     {
                         this.props.books.map((elem,index) => {
@@ -21,7 +21,8 @@ export default class books extends React.Component {
                                     author={elem.author}
                                     quantity={elem.quantity}
                                     edit={(id)=>{this.props.edit(elem.id)}}
-                                    delete={()=>{this.props.delete(elem.id)}}
+                                    delete={() => { this.props.delete(elem.id) }}
+                                    showdetails={()=>{this.props.showdetails(elem.id)}}
                                 />)
                         })
                     }

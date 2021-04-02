@@ -50,9 +50,9 @@ router.get('/', function (req, res, next) {
 //get single user from the listing
 //http://localhost:5000/students/:id  method:GET
 router.get('/:id', function (req, res, next) {
-  let query = new ObjectID(req.params.id)
+  let query = req.params.id
   req.db.collection('bookstore')
-    .findOne({ _id: query })
+    .findOne({ id: query })
     .then(data => {
       console.log("mesage test")
       res.json(data);
@@ -66,24 +66,24 @@ router.get('/:id', function (req, res, next) {
 
 //http://localhost:5000/students/:id  method : PUT
 router.put('/:id', function (req, res, next) {
-
+  let query = req.params.id
   req.db.collection('bookstore')
-    .updateOne({ id: query },
-      {
-        $set: {
-          major: req.body.major,
-          email: req.body.email,
-          fname: req.body.fname,
-          lname: req.body.lname
-        }
-      })
+    .update({ id: query }, {
+      $set: {
+        id: req.body.id,
+        title: req.body.title,
+        author: req.body.author,
+        quantity: req.db.quantity
+      }
+    })
     .then(data => {
       console.log("mesage test")
-      res.json({ status: "successully updated" });
+      res.json(data);
     })
     .catch(err => {
-      res.json({ status: 'faild to update' })
+      res.json({ status: 'faild to laod' })
     })
+
 });
 //http://localhost:5000/students  method DELETE
 router.delete('/:id', function (req, res, next) {

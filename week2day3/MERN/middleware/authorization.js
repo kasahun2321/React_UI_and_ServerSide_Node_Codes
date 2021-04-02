@@ -21,10 +21,10 @@ class Authorization {
     }
     checkValidInput(req, res, next) {
         const data = req.body;
-        if (!data.email
-            || !data.fname
-            || !data.lname
-            || !data.major
+        if (!data.name
+            || !data.username
+            || !data.password
+           
         ) {
             return res.json({ status: "Required field missing" })
         }

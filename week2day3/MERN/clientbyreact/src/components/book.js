@@ -13,6 +13,7 @@ export default class Book extends React.Component {
                     <td>{this.props.quantity}</td>
                     <td><button onClick={this.props.edit} className="btn btn-info">Edit</button>
                     <button onClick={this.props.delete} className="btn btn-danger">Delete</button></td>
+                    <td><button onClick={this.props.showdetails} className="btn btn-danger">show details</button></td>
 
                 </tr>
             </Aux>
