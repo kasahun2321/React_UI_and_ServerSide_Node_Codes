@@ -18,31 +18,40 @@ import {
 
 export default class MainPage extends React.Component {
     render() {
-        return (
-            <Aux>
-                <header>
 
-                    <nav className='navbar navbar-inverse'>
-                        <ul className="nav navbar-nav">
-                            <li><Link to='/'>Home</Link></li>
-                            <li><Link to='/login'>Login</Link></li>
-                            <li><Link to='/register'>Register</Link></li>
-                            <li><Link to='/addbook'>Add booK</Link></li>
-                            <li><Link to='/listbook'>List book</Link></li>
-                            
-                        </ul>
-                        <div>
+        const mystyle = {
+            color: "white",
+            backgroundColor: "DodgerBlue",
+            padding: "10px",
+            fontFamily: "Arial"
+        }
+        const container = {
+            width:'80%'
+        }
+
+        return (
+            <Aux style={this.container}>
+                <br/>
+                <table width='80%' align='center'>
+                    <tr>
+                        
+                        <td><Link className='btn btn-info btn-block' to="/" style={this.mystyle}>Home</Link></td>
+                        <td><Link className='btn btn-info btn-block' to="/login" style={this.mystyle}>login</Link></td>
+                        <td><Link className='btn btn-info btn-block' to="/register" style={this.mystyle}>register</Link></td>
+                        <td><Link className='btn btn-info btn-block' to="/addbook" style={this.mystyle}>addbook</Link></td>
+                        <td><Link className='btn btn-info btn-block' to="/listbook" style={this.mystyle}>listbook</Link></td>
+                        <td><div>
                             <div className="input-group">
-                                <input type="text" className="form-control" placeholder="Search"/>
-                                    <div className="input-group-btn">
-                                        <button className="btn btn-default" type="submit">
-                                            <i className="glyphicon glyphicon-search">search</i>
-                                        </button>
-                                    </div>                               
+                                <input type="text" className="form-control" placeholder="Search" />
+                                <div className="input-group-btn">
+                                    <button className="btn btn-danger" type="submit">
+                                        <i className="glyphicon glyphicon-search">search</i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </nav>
-                </header>
+                        </div></td>
+                    </tr>
+                </table>
                 <Route path='/' exact component={App} />
                 <Route path='/login' exact component={Login} />
                 <Route path='/register' exact component={Register} />

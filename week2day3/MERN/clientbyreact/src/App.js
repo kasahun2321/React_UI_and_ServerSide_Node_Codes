@@ -35,16 +35,16 @@ class App extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
 
-
     this.fetchdata();
   }
-  shouldComponentUpdate(prevProps, prevState) {
+  // shouldComponentUpdate(prevProps, prevState) {
 
-    if (prevProps.bookstore !== this.state.bookstore) {
-      return true;
-    }
-    return false;
-  }
+  //   if ((!this.state.bookstore && this.props.id) ||
+  //   (this.state.bookstore{
+     
+  //   }
+  //   return false;
+  // }
   // when ever called fetch the data into state
   fetchdata = () => {
     axiosBaseURL.get('/students')
@@ -96,7 +96,6 @@ class App extends React.Component {
   updatesave = () => {
     console.log(this.obj)
     let updateBook = this.obj
-    alert(updateBook.id)
     axios.put('http://localhost:5000/students/' + updateBook.id, updateBook)
       .then(res => {
         console.log(res);
@@ -126,12 +125,16 @@ class App extends React.Component {
   idONchangeeventp(event) {
     this.obj.id = event.target.value;
   }
+  ///update title
   titleONchangeevent1p(event) {
     this.obj.title = event.target.value;
   }
+  // update author
   authorONchangeevent2p(event) {
     this.obj.author = event.target.value;
+
   }
+  //quantity 
   quantityOnchagep(event) {
     this.obj.quantity = event.target.value;
   }
@@ -154,6 +157,7 @@ class App extends React.Component {
   }
 
   render() {
+    
     let editform = null;
     if (this.state.onoff) {
       editform = <Editform
